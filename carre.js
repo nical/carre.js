@@ -47,11 +47,13 @@ var Carre = {
             Util.require("lib/game_object.js", function() {
               Util.require("lib/display_components.js", function() {
                 Util.require("lib/game_logic.js", function() {
+                  Util.require("lib/gameplay.js", function() {
                     Util.require("lib/sound.js", function() {
                       // initialize sound (preload assets and such).
                       Carre.Sound.init.bind(Carre.Sound)();
                       // Initialize the game logic and stuff
                       Carre.GameLogic.init.bind(Carre.GameLogic)();
+                      Carre.Gameplay.init.bind(Carre.Gameplay)();
                       // Load the first level
 
                       _this.loadLevel(true);
@@ -83,6 +85,7 @@ var Carre = {
           });
         });
       });
+    });
   },
   loadLevel : function(preload) {
     var level = Carre.settings.levels[this.currentLevel];
@@ -117,26 +120,21 @@ var Carre = {
     }
     var _this = this;
 
-    document.getElementById("clooooose").onclick = function() {
+    //document.getElementById("clooooose").onclick = function() {
       _this.loadLevel();
       _this.startLevel();
       _this.unpauseGameLoop();
       Util.fade( "curtain", 0 );
       Util.toggleFade( "score" );
-    };
+    //};
   },
   gameWon : function() {
     console.log("the game has been won.");
     var curtain = document.getElementById("curtain");
     curtain.innerHTML = "You Won !";
     Util.c(curtain, "add", "bigFatHotPink");
-  },/*
-  fadeToBlack : function() {
-    document.getElementById("curtain").className = "fadedToBlack";
   },
-  fadeToTransparent : function() {
-    document.getElementById("curtain").className = "";
-  },*/
+
   play : function() {
     document.querySelector("#menu").style.disabled = true;
     if (Carre.isPlaying) {
@@ -211,7 +209,7 @@ var Carre = {
     })();
   },
   gameLoop : function() {
-    console.log("GAMELOOP");
+    //console.log("GAMELOOP");
     Carre.Menu.hide();
     Carre.isPlaying = true;
 
