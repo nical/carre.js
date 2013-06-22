@@ -3,6 +3,9 @@ Game.Gameplay = {
 // Cette fonction est exécutée au début du jeu. Elle initialise les règles
 // qui constituent le "game-play".
 init : function gpp_init() {
+// Pour commencer directement à un autre niveau, modifiez la valeur ci-dessous
+Carre.currentLevel = 0;
+
 // 
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
@@ -25,6 +28,7 @@ Carre.GameLogic.onKeyPressed("pause",
 // ----------------------------------------------------------------------------
 Carre.GameLogic.forEachObjectOfType("player",
     function gpp_inputsLeftRight(player, elapsedTime) {
+        console.log("player "+player.x+" "+player.y);
         if (Carre.Inputs.isKeyDown("left")) {
             if (player.isWallGrinding != true) {
                 player.look = "left";
@@ -108,6 +112,22 @@ Carre.GameLogic.onCollisionBetween(
         }
     }
 );
+
+// ----------------------------------------------------------------------------
+// bonus
+// ----------------------------------------------------------------------------
+Carre.GameLogic.onCollisionBetween(
+//            ...entre objet de type player et un objet de type bumper
+    ["player", "bonus"],
+// action: propulse le player vers le haut, la gauche ou la droite
+//         en lui imposant une vitesse
+    function gpp_bumper(player, bonus, elapsed){
+        player.vy = -12;
+        bonus.destroy.bind(bonus)();
+    }
+);
+
+
 
 // ----------------------------------------------------------------------------
 // fin du niveau

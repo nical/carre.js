@@ -90,6 +90,7 @@ var Carre = {
     });
   },
   loadLevel : function(preload) {
+    Carre.GameLogic.isLevelStart = true;
     var level = Carre.settings.levels[this.currentLevel];
     console.log("Loading level " + level.name);
     // Load the tileset and the collision file for this level.
@@ -145,6 +146,7 @@ var Carre = {
     }
 
     if (this.currentLevel === 0) {
+      this.currentLevel = Game.firstLevel;
       Carre.Sound.fadeToSilence();
       this.startLevel();
     }

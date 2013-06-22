@@ -1,7 +1,5 @@
 Game.GameObjects = {
 
-  firstLevel: 1,
-
   objects: {
 
     // Le joueur
@@ -68,6 +66,7 @@ Game.GameObjects = {
     bonus : {
       displayComponent : Carre.DisplayComponents.Bonus,
       families: [ "bonus" ],
+      boundingBox : { x : -38, y : -30, width : 16, height : 16},
       noload: true
     },
 
