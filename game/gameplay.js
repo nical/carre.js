@@ -1,13 +1,14 @@
-Carre.Gameplay = {
-init : function gpp_init() {
-// 
+Game.Gameplay = {
+// ---------------------------------------------------------------------------
 // Cette fonction est exécutée au début du jeu. Elle initialise les règles
 // qui constituent le "game-play".
+init : function gpp_init() {
 // 
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
+
 
 
 // ----------------------------------------------------------------------------
@@ -16,7 +17,6 @@ init : function gpp_init() {
 Carre.GameLogic.onKeyPressed("pause",
     function gpp_keyPause(elapsedTime) {
       Carre.paused = !Carre.paused;
-      //Carre.Menu.showHidePauseLabel();
     }
 );
 
@@ -25,14 +25,12 @@ Carre.GameLogic.onKeyPressed("pause",
 // ----------------------------------------------------------------------------
 Carre.GameLogic.forEachObjectOfType("player",
     function gpp_inputsLeftRight(player, elapsedTime) {
-        var MAX_SPEED = 6.0;
-
         if (Carre.Inputs.isKeyDown("left")) {
             if (player.isWallGrinding != true) {
                 player.look = "left";
             }
             if (!Carre.GameLogic.isTouchingBackground(player, "left")) {
-                player.vx = Math.max(player.vx - 0.08 * elapsedTime, -MAX_SPEED);
+                player.vx = Math.max(player.vx - 0.08 * elapsedTime, - player.maxspeed);
                 player.displayComponent.animation.currentAnimation = player.displayComponent.animation.walking;
             }
         }
@@ -41,13 +39,12 @@ Carre.GameLogic.forEachObjectOfType("player",
                 player.look = "right";
             }
             if (!Carre.GameLogic.isTouchingBackground(player, "right")) {
-                player.vx = Math.min(player.vx + 0.08 * elapsedTime, MAX_SPEED);
+                player.vx = Math.min(player.vx + 0.08 * elapsedTime, player.maxspeed);
                 player.displayComponent.animation.currentAnimation = player.displayComponent.animation.walking;
             }
         }
     }
 );
-
 // ----------------------------------------------------------------------------
 // Sauter (joueur)
 // ----------------------------------------------------------------------------
@@ -55,7 +52,9 @@ var jump = function gpp_jump(player, elapsedTime) {
     if (Carre.GameLogic.isTouchingBackground(player, "down")) {
         player.vy = -15;
         Carre.Sound.trigger("jump");
-    } else if (Carre.GameLogic.isTouchingBackground(player, "right") &&
+    }
+/*
+     else if (Carre.GameLogic.isTouchingBackground(player, "right") &&
                !Carre.GameLogic.isTouchingBackground(player, "down")) {
         player.vy = -16;
         player.vx = -10;
@@ -66,8 +65,8 @@ var jump = function gpp_jump(player, elapsedTime) {
         player.vx = 10;
         Carre.Sound.trigger("walljump");
     }
+*/
 }
-
 // au moment de l'appui sur fleche du haut
 Carre.GameLogic.onKeyPressed("up",
     function (elapsedTime) {
@@ -87,7 +86,6 @@ Carre.GameLogic.onKeyPressed("action1",
         }
     }
 );
-
 
 // ----------------------------------------------------------------------------
 // tremplins
@@ -146,10 +144,10 @@ Carre.GameLogic.forEachObjectOfType("physical",
     }
 );
 
-
 // ----------------------------------------------------------------------------
 // Bruits de pas du joueur
 // ----------------------------------------------------------------------------
+/*
 Carre.GameLogic.forEachObjectOfType("player",
     function gpp_computePlayerSound(player, elapsedTime) {
         var cp = player.collisionPoints;
@@ -169,19 +167,20 @@ Carre.GameLogic.forEachObjectOfType("player",
         }
     }
 );
+*/
 
 // ----------------------------------------------------------------------------
-// Wall jump
+// Wall grind
 // ----------------------------------------------------------------------------
 Carre.GameLogic.forEachObjectOfType("player",
     function gpp_computeWallJump(player, elapsedTime) {
         if (player.collisionPoints.right2.state >= 0 && Carre.Inputs.isKeyDown("right")) {
-          player.vy = Math.min(player.vy, 3);
+          player.vy = Math.min(player.vy, 2);
           player.look = "left";
           player.displayComponent.animation.currentAnimation = player.displayComponent.animation.jump_up;
           player.isWallGrinding = true;
         } else if (player.collisionPoints.left2.state >= 0 && Carre.Inputs.isKeyDown("left")) {
-          player.vy = Math.min(player.vy, 3);
+          player.vy = Math.min(player.vy, 2);
           player.look = "right";
           player.displayComponent.animation.currentAnimation = player.displayComponent.animation.jump_up;
           player.isWallGrinding = true;
@@ -190,7 +189,6 @@ Carre.GameLogic.forEachObjectOfType("player",
         }
     }
 );
-
 
 // ----------------------------------------------------------------------------
 // Mort d'un objet quand il tombe du niveau
@@ -293,9 +291,17 @@ Carre.GameLogic.forEachObjectOfType("particle",
         }
     }
 );
-
-
-
+/*
+// ----------------------------------------------------------------------------
+// Compteur de temps
+// ----------------------------------------------------------------------------
+Carre.GameLogic.forEachObjectOfType("timer",
+    function gpp_updateTimer(timer, elapsedTime)
+    {
+        timer.value = (+new Date - timer.loadLevelTime) / 1000;
+    }
+);
+*/
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------

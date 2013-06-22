@@ -18,6 +18,8 @@ var Util = {
   }
 };
 
+var Game = {}
+
 var Carre = {
   init : function() {
     // shim layer with setTimeout fallback
@@ -44,16 +46,16 @@ var Carre = {
         Util.require("lib/tile.js", function() {
           Util.require("lib/inputs.js", function() {
             _this.initInputs();
-            Util.require("lib/game_object.js", function() {
-              Util.require("lib/display_components.js", function() {
-                Util.require("lib/game_logic.js", function() {
-                  Util.require("lib/gameplay.js", function() {
+            Util.require("lib/display_components.js", function() {
+              Util.require("lib/game_logic.js", function() {
+                Util.require("game/objects.js", function() {
+                  Util.require("game/gameplay.js", function() {
                     Util.require("lib/sound.js", function() {
                       // initialize sound (preload assets and such).
                       Carre.Sound.init.bind(Carre.Sound)();
                       // Initialize the game logic and stuff
                       Carre.GameLogic.init.bind(Carre.GameLogic)();
-                      Carre.Gameplay.init.bind(Carre.Gameplay)();
+                      Game.Gameplay.init.bind(Game.Gameplay)();
                       // Load the first level
 
                       _this.loadLevel(true);
