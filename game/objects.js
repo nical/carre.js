@@ -66,7 +66,7 @@ Game.GameObjects = {
     bonus : {
       displayComponent : Carre.DisplayComponents.Bonus,
       families: [ "bonus" ],
-      boundingBox : { x : -38, y : -30, width : 16, height : 16},
+      boundingBox : { x : -40, y : -33, width : 20, height : 20},
       noload: true
     },
 
@@ -111,8 +111,8 @@ Game.GameObjects = {
       boundingBox: {
         x: 0,
         y: 0,
-        height: 0,
-        width: 0,
+        height: 70,
+        width: 70,
       }
     }
   }

@@ -146,7 +146,6 @@ var Carre = {
     }
 
     if (this.currentLevel === 0) {
-      this.currentLevel = Game.firstLevel;
       Carre.Sound.fadeToSilence();
       this.startLevel();
     }

@@ -28,7 +28,6 @@ Carre.GameLogic.onKeyPressed("pause",
 // ----------------------------------------------------------------------------
 Carre.GameLogic.forEachObjectOfType("player",
     function gpp_inputsLeftRight(player, elapsedTime) {
-        console.log("player "+player.x+" "+player.y);
         if (Carre.Inputs.isKeyDown("left")) {
             if (player.isWallGrinding != true) {
                 player.look = "left";
@@ -134,6 +133,7 @@ Carre.GameLogic.onCollisionBetween(
 // ----------------------------------------------------------------------------
 Carre.GameLogic.onCollisionBetween( ["player", "level_end"],
   function gpp_endLevel(objPlayer, objEnder, elapsed) {
+    //alert("Foo!");
     Carre.levelWon();
   }
 );
@@ -167,7 +167,6 @@ Carre.GameLogic.forEachObjectOfType("physical",
 // ----------------------------------------------------------------------------
 // Bruits de pas du joueur
 // ----------------------------------------------------------------------------
-/*
 Carre.GameLogic.forEachObjectOfType("player",
     function gpp_computePlayerSound(player, elapsedTime) {
         var cp = player.collisionPoints;
@@ -187,7 +186,6 @@ Carre.GameLogic.forEachObjectOfType("player",
         }
     }
 );
-*/
 
 // ----------------------------------------------------------------------------
 // Wall grind
@@ -311,7 +309,7 @@ Carre.GameLogic.forEachObjectOfType("particle",
         }
     }
 );
-/*
+
 // ----------------------------------------------------------------------------
 // Compteur de temps
 // ----------------------------------------------------------------------------
@@ -321,7 +319,7 @@ Carre.GameLogic.forEachObjectOfType("timer",
         timer.value = (+new Date - timer.loadLevelTime) / 1000;
     }
 );
-*/
+
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
